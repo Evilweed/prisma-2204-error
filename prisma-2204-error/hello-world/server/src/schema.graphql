@@ -1,0 +1,276 @@
+type Query {
+  exerciseGroups: [ExerciseGroup!]!
+  equipments: [Equipment!]!
+  contraindications: [Contraindication!]!
+  exerciseTags: [ExerciseTag!]!
+  exerciseTypes: [ExerciseType!]!
+  muscles(primary: Boolean): [Muscle!]!
+  advices:[Advice!]!
+  adviceTags:[AdviceTag!]!
+  adviceCategories:[AdviceCategory!]!
+}
+
+type Mutation {
+  createExerciseGroup(params: CreateExerciseGroupParams!): ExerciseGroup
+  createExerciseType(params: CreateExerciseTypeParams!): ExerciseType
+  createEquipment(params: CreateEquipmentParams!): Equipment
+  createContraindication(params: CreateContraindicationParams!): Contraindication
+  createAdvice(params: CreateAdviceParams!): Advice
+  createAdviceTag(params: CreateAdviceTagParams!): AdviceTag
+  createAdviceCategory(params: CreateAdviceCategoryParams!): AdviceCategory
+
+  deleteExerciseGroup(id: String!): ExerciseGroup
+  deleteExerciseType(id: String!): ExerciseType
+  deleteEquipment(id: String!): Equipment
+  deleteContraindication(id: String!): Contraindication
+  deleteAdviceTag(id: String!): AdviceTag
+  deleteAdviceCategory(id: String!): AdviceCategory
+}
+
+
+
+
+#type CreateAdviceTagResult {
+#  validationErrors: String
+#  error: String
+#  adviceTag: AdviceTag
+#}
+
+
+
+enum IntensePhase {
+  Concentric
+  Eccentric
+}
+
+enum MovementType {
+  Pull
+  Push
+}
+
+enum ExerciseMechanics {
+  Compound
+  Isolated
+}
+
+enum ExerciseStatus {
+  Draft
+  Finished
+  Published
+}
+
+enum PhaseType {
+  Preparation
+  Initial
+  Middle
+  End
+}
+
+type ExerciseType {
+  id: ID!
+  name: String!
+}
+
+type ExerciseGroup {
+  id: ID!
+  name:String!
+}
+
+type Equipment {
+  id: ID!
+  name: String!
+}
+
+type ExerciseTag {
+  id: ID!
+  name: String!
+}
+
+type Contraindication {
+  id: ID!
+  name: String!
+}
+
+type Muscle {
+  id: ID!
+  name: String!
+  parentMuscleId: ID
+}
+
+
+
+type Advice {
+  id: ID!
+  name:String!
+  value: Int!
+  description: String!
+  tags: [AdviceTag]
+  categories: [AdviceCategory]
+  videos: [AdviceVideoAsset]
+  images: [AdviceImageAsset]
+}
+
+type AdviceTag {
+  id: ID!
+  name: String!
+}
+
+type AdviceCategory {
+  id: ID!
+  name: String!
+}
+
+type AdviceImageAsset {
+  id: ID!
+  dataId: String!
+  mimetype: String!
+}
+
+type AdviceVideoAsset {
+  id: ID!
+  url: String!
+}
+
+type ImageAsset {
+  id: ID!
+  dataId: String!
+  mimetype: String!
+}
+
+type VideoAsset {
+  id: ID!
+  url: String!
+}
+
+
+
+
+
+
+
+
+# CREATE PARAMS
+
+input CreateAdviceParams {
+  name:String!
+  value: Int!
+  description: String!
+  tags: [CreateConnect]
+  categories: [CreateConnect]
+  videos: [CreateConnect]
+  images: [CreateConnect]
+}
+
+input CreateConnect {
+  create: [Names]
+  connect: [IDs]
+}
+
+input IDs {
+  id: ID!
+}
+
+input Names {
+  name: String!
+}
+
+input CreateAdviceTagParams {
+  name: String!
+}
+
+input CreateAdviceCategoryParams {
+  name: String!
+}
+
+input CreateContraindicationParams {
+  name: String!
+}
+
+input CreateExerciseGroupParams {
+  name: String!
+}
+
+input CreateExerciseTypeParams {
+  name: String!
+}
+
+input CreateEquipmentParams {
+  name: String!
+}
+
+
+
+
+
+# PARAMS
+
+input AdviceCategoryParams {
+  id: ID
+  name: String
+}
+
+
+input AdviceTagParams {
+  id: ID
+  name: String
+}
+
+input ImageAssetParams {
+  id: ID
+  name: String
+}
+
+input VideoAssetParams {
+  id: ID
+  name: String
+}
+
+input ExerciseAdviceParams {
+  id: ID
+  name: String
+  value: Int
+  description: String
+  tags: [AdviceTagParams!]
+  categories: [AdviceCategoryParams!]
+  videos: [AdviceCategoryParams!]!
+  images: [AdviceCategoryParams!]!
+}
+
+input ExerciseContraindicationParams {
+  id: ID!
+  name: String!
+}
+
+input ExerciseEquipmentParams {
+  id: ID!
+  name: String!
+}
+
+input ExerciseTagParams {
+  id: ID
+  name: String!
+}
+
+input ExerciseTypeParams {
+  id: ID
+  name: String!
+}
+
+input PhaseDescriptionParams {
+  preparation: String
+  initial: String
+  middle: String
+  end: String
+}
+
+input PrimaryMuscleParams {
+  id: ID!
+  intensity: Int!
+  intensePhase: IntensePhase!
+}
+
+input SecondaryMuscleParams {
+  id: ID!
+  intensity: Int!
+}
+

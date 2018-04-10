@@ -1,0 +1,106 @@
+type Advice {
+  id: ID! @unique
+  name: String!
+  value: Int!
+  description: String!
+  tags: [AdviceTag!]!
+  categories: [AdviceCategory!]!
+  videos: [AdviceVideoAsset!]!
+  images: [AdviceImageAsset!]!
+}
+
+type AdviceTag {
+  id: ID! @unique
+  name: String!
+  advices: [Advice!]!
+}
+
+type AdviceCategory {
+  id: ID! @unique
+  name: String!
+  advices: [Advice!]!
+}
+
+type AdviceImageAsset {
+  id: ID! @unique
+  dataId: String!
+  mimetype: String!
+  advices: [Advice!]!
+}
+
+type AdviceVideoAsset {
+  id: ID! @unique
+  url: String!
+  advices: [Advice!]!
+}
+
+
+type Contraindication {
+  id: ID! @unique
+  name: String!
+}
+
+type Equipment {
+  id: ID! @unique
+  name: String!
+}
+
+type ExerciseGroup {
+  id: ID! @unique
+  name: String!
+}
+
+enum ExerciseMechanics {
+  Compound
+  Isolated
+}
+
+enum ExerciseStatus {
+  Draft
+  Finished
+  Published
+}
+
+type ExerciseTag {
+  id: ID! @unique
+  name: String!
+}
+
+type ExerciseType {
+  id: ID! @unique
+  name: String!
+}
+
+type ImageAsset {
+  id: ID! @unique
+  dataId: String!
+  mimetype: String!
+}
+
+enum IntensePhase {
+  Concentric
+  Eccentric
+}
+
+enum MovementType {
+  Pull
+  Push
+}
+
+type Muscle {
+  id: ID! @unique
+  name: String!
+  parentMuscleId: ID
+}
+
+enum PhaseType {
+  Preparation
+  Initial
+  Middle
+  End
+}
+
+type VideoAsset {
+  id: ID! @unique
+  url: String!
+}
