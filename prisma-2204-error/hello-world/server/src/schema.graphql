@@ -156,7 +156,7 @@ input CreateAdviceParams {
   value: Int!
   description: String!
   tags: [CreateConnect]
-  categories: [CreateConnect]
+  categories: CreateConnect
   videos: [CreateConnect]
   images: [CreateConnect]
 }
